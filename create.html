@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Product</title>
+    <link rel="stylesheet" href="./css/milligram.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="column">
+                <label for="productId">Product ID</label>
+                <input type="text" id="productId" placeholder="Product ID" disabled>
+
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" placeholder="Product Name">
+
+                <label for="productCode">Product Code</label>
+                <input type="text" id="productCode" placeholder="Product Code">
+
+                <label for="unitPrice">Unit Price</label>
+                <input type="text" id="unitPrice" placeholder="Unit Price">
+
+                <label for="qty">Quantity</label>
+                <input type="text" id="qty" placeholder="Quantity">
+
+                <label for="totalPrice">Total Price</label>
+                <input type="text" id="totalPrice" placeholder="Total Price">
+
+                <label for="productImg">Product Image</label>
+                <input type="text" id="productImg" placeholder="Product Image">
+
+                <button onclick="createItem()">Create</button>
+            </div>
+        </div>
+    </div>
+    <script src="./js/axios.min.js"></script>
+    <script>
+        const createItem = async () => {
+            let createObj = {
+                Img: document.getElementById('productImg').value,
+                ProductCode: document.getElementById('productCode').value,
+                ProductName: document.getElementById('productName').value,
+                Qty: document.getElementById('qty').value,
+                TotalPrice: document.getElementById('totalPrice').value,
+                UnitPrice: document.getElementById('unitPrice').value
+            }
+            let res = await axios.post(`https://crud.teamrabbil.com/api/v1/CreateProduct`, createObj);
+            if (res.status === 200) {
+                alert("Create Successfull");
+                window.location.href = "index.html";
+            }
+        }
+    </script>
+</body>
+
+</html>
