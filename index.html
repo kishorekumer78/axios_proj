@@ -59,7 +59,7 @@
             let res = await axios.get(`https://crud.teamrabbil.com/api/v1/DeleteProduct/${id}`);
             if (res.status == 200) {
                 alert("delete success");
-                document.getElementById("itemList").innerHTML("");
+                document.getElementById("itemList").innerHTML = "";
                 getProducts();
             } else {
                 console.log("error");

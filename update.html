@@ -13,7 +13,7 @@
         <div class="row">
             <div class="column">
                 <label for="productId">Product ID</label>
-                <input type="text" id="productId" placeholder="Product ID">
+                <input type="text" id="productId" placeholder="Product ID" disabled>
 
                 <label for="productName">Product Name</label>
                 <input type="text" id="productName" placeholder="Product Name">
@@ -54,7 +54,23 @@
                 document.getElementById('productId').value = product['_id'];
             } else { alert("Error") }
         }
-        const updateItem = () => { }
+        const updateItem = async () => {
+            let updtObj = {
+                Img: document.getElementById('productImg').value,
+                ProductCode: document.getElementById('productCode').value,
+                ProductName: document.getElementById('productName').value,
+                Qty: document.getElementById('qty').value,
+                TotalPrice: document.getElementById('totalPrice').value,
+                UnitPrice: document.getElementById('unitPrice').value
+            }
+            let prod_id = document.getElementById('productId').value;
+
+            let res = await axios.post(`https://crud.teamrabbil.com/api/v1/UpdateProduct/${prod_id}`, updtObj);
+            if (res.status === 200) {
+                alert("Update Successfull");
+                window.location.href = "index.html";
+            }
+        }
 
 
         const urlParams = new URLSearchParams(window.location.search);
