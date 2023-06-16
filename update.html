@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Item</title>
+    <link rel="stylesheet" href="./css/milligram.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="column">
+                <label for="productId">Product ID</label>
+                <input type="text" id="productId" placeholder="Product ID">
+
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" placeholder="Product Name">
+
+                <label for="productCode">Product Code</label>
+                <input type="text" id="productCode" placeholder="Product Code">
+
+                <label for="unitPrice">Unit Price</label>
+                <input type="text" id="unitPrice" placeholder="Unit Price">
+
+                <label for="qty">Quantity</label>
+                <input type="text" id="qty" placeholder="Quantity">
+
+                <label for="totalPrice">Total Price</label>
+                <input type="text" id="totalPrice" placeholder="Total Price">
+
+                <label for="productImg">Product Image</label>
+                <input type="text" id="productImg" placeholder="Product Image">
+
+                <button onclick="updateItem()">Update</button>
+            </div>
+        </div>
+    </div>
+    <script src="./js/axios.min.js"></script>
+    <script>
+
+        const populateForm = async (id) => {
+            let res = await axios.get(`https://crud.teamrabbil.com/api/v1/ReadProductByID/${id}`);
+
+            if (res.status === 200) {
+                let product = res.data['data'][0];
+                document.getElementById('productName').value = product['ProductName'];
+                document.getElementById('productCode').value = product['ProductCode'];
+                document.getElementById('unitPrice').value = product['UnitPrice'];
+                document.getElementById('qty').value = product['Qty'];
+                document.getElementById('totalPrice').value = product['TotalPrice'];
+                document.getElementById('productImg').value = product['Img'];
+                document.getElementById('productId').value = product['_id'];
+            } else { alert("Error") }
+        }
+        const updateItem = () => { }
+
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        populateForm(id);
+    </script>
+</body>
+
+</html>
